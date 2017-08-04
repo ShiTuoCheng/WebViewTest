@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         mWebView.getSettings().setJavaScriptEnabled(true);
         // 从assets目录下面的加载html
         mWebView.loadUrl("file:///android_asset/javascript.html");
-        mWebView.addJavascriptInterface(this, "wx");
+        mWebView.addJavascriptInterface(this, "test");
         logTextView = (TextView) findViewById(R.id.text);
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new Button.OnClickListener() {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @android.webkit.JavascriptInterface
+    @JavascriptInterface
     public void actionFromJs() {
         mWebView.post(new Runnable() {
             @Override
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @android.webkit.JavascriptInterface
+    @JavascriptInterface
     public void actionFromJsWithParam(final String str) {
         mWebView.post(new Runnable() {
             @Override
